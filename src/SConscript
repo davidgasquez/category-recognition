@@ -1,0 +1,9 @@
+paths = ['../include']
+flags = ['-Werror', '-O2']
+libs = ['opencv_core', 'opencv_highgui', 'opencv_imgproc', 'opencv_nonfree', 'opencv_features2d']
+libpaths = []
+
+#Source files
+sources = Glob('*.cc')
+
+Program('../bin/category-reconition', sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)

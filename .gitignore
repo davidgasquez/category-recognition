@@ -1,0 +1,5 @@
+bin
+obj
+.sconsign.dblite
+doc/*
+!doc/*.tex
