@@ -1,5 +1,6 @@
 bin
 obj
+resources
 .sconsign.dblite
 doc/*
 !doc/*.tex
