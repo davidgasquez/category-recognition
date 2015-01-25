@@ -1,6 +1,6 @@
 paths = ['../include']
-flags = ['-Werror', '-O2']
-libs = ['opencv_core', 'opencv_highgui', 'opencv_imgproc', 'opencv_nonfree', 'opencv_features2d']
+flags = ['-Werror', '-g']
+libs = ['opencv_core', 'opencv_highgui', 'opencv_imgproc', 'opencv_nonfree', 'opencv_features2d', 'boost_filesystem-mt', 'boost_system-mt']
 libpaths = []
 
 #Source files
