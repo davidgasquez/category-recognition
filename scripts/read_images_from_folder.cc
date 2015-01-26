@@ -23,7 +23,7 @@ void ShowImage(Mat const &image, char const *title) {
 int main(int argc, char *argv[]) {
 
   if (argc < 2) {
-    cerr << "Usage: show_dir path";
+    cerr << "Usage: ./show_images path";
     return -1;
   }
 
