@@ -1,8 +1,8 @@
 \documentclass[a4paper,12pt]{article}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 % Paquetes
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 % Permite reconocer acentos
 \usepackage[utf8]{inputenc}
@@ -44,9 +44,9 @@
 \setlength{\parindent}{\baselineskip}
 \linespread{1.25}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 % Inicio del Documento
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \begin{document}
 
@@ -54,18 +54,18 @@
 \include{title_page}
 
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 % Índice
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 \pagestyle{empty}
 \renewcommand{\contentsname}{\centering Índice}
 \tableofcontents
 \newpage
 
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 % Estilo de las cabeceras y de los piés de página
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \pagestyle{fancy}
 \cfoot{\thepage}
@@ -75,11 +75,49 @@
 \renewcommand{\headheight}{15pt}
 
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 % Contenido
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Descripción del Problema}
+
+\subsection{Introducción}
+
+El problema al que nos enfrentamos se trata de la clasificación automática de
+la categoría a la que pertenece un objeto o varios. Es uno de los temas más 
+activos en investigación actualmente. Actualmente el reconocimiento de la
+instancia de un objeto en particular está bastante asentado. El problema
+pués, se trata de reconocer la categoría a la que pertenece un objeto en
+cuestión y no de que objeto específico se trata. La correcta categorización 
+de un objeto nos proporciona información adicional sobre el mismo, como puede
+ser su uso.
+
+El enfoque de esté trabajo va a ser la clasificación de objetos en 101 
+distintas categorías usando la base de dátos pública del
+California Institute of Technology.
+
+La clasificación en nuestro caso será indicar la presencia o nó de una categoría
+en una imagen dada. Asignar una categoría a una imagen presenta varios 
+problemas:
+\begin{itemize}
+  \item Diferencias en el aspecto del objeto
+  \item La imagen puede tomarse en distintas condiciones,posiciones\ldots
+  \item Puede ser subjetivo, dependiendo del observador
+\end{itemize}
+
+\subsection{Procedimiento}
+\begin{enumerate}
+  \item Extraer un número considerable de descriptores SIFT(entre 50.000 y 
+  100.000) de un conjunto de imágenes cualesquiera
+  \item Realizar entre 200 y 1500 clústeres usándo la técnica KNN con los
+  descriptores SIFT
+  \item Obtener de cada categoría un conjunto de imágenes de entrenamiento, de
+  las cuales obtenemos los descriptores SIFT densos para contrastarlos con los
+  clústeres y crear el descriptor de la imagen
+  \item Entrenar una máquina de soporte vectorial con dichos descriptores para
+  cada clase
+  \item Comprobar los resultados con un conjunto de test
+\end{enumerate}
 
 \newpage
 \section{Implementación}
@@ -93,9 +131,9 @@
 \newpage
 \section{Conclusiones}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 % Bibliografía
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \newpage
 \begin{thebibliography}{99}
