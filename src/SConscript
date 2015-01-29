@@ -1,9 +1,9 @@
-paths = ['../include']
+paths = ['../src/clustering/*']
 flags = ['-Werror', '-g']
-libs = ['opencv_core', 'opencv_highgui', 'opencv_imgproc', 'opencv_nonfree', 'opencv_features2d', 'boost_filesystem-mt', 'boost_system-mt']
+libs = ['opencv_core', 'opencv_highgui', 'opencv_imgproc', 'opencv_nonfree', 'opencv_features2d']
 libpaths = []
 
 #Source files
-sources = Glob('*.cc')
+clustering_sources = Glob('../src/clustering/*.cc')
 
-Program('../bin/category-reconition', sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)
+Program('../bin/clustering', clustering_sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)

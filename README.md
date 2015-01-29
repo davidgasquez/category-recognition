@@ -7,7 +7,6 @@ and Machine Learning techniques.
 Dependencies
 ------------
   - OpenCV
-  - Boost filesystem
 
 Run
 ---
