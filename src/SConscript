@@ -1,9 +1,12 @@
-paths = ['../src/clustering/*']
+paths = ['#src']
 flags = ['-Werror', '-g']
 libs = ['opencv_core', 'opencv_highgui', 'opencv_imgproc', 'opencv_nonfree', 'opencv_features2d']
 libpaths = []
 
 #Source files
-clustering_sources = Glob('../src/clustering/*.cc')
+clustering_sources = Split('''
+clustering/main.cc
+clustering/clustering.cc
+''')
 
 Program('../bin/clustering', clustering_sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)
