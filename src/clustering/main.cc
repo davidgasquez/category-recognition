@@ -10,6 +10,7 @@ int main(int argc, char const *argv[]) {
     cerr << "<number of descriptors> <number of clusters>" << endl;
     return -1;
   }
+  cout << endl;
 
   // Get parameters
   string path = argv[1];
@@ -17,16 +18,14 @@ int main(int argc, char const *argv[]) {
   int K = atoi(argv[3]);
 
   // Compute decriptors for images in folder path
-  Mat features_unclustered = clustering::ComputeDescriptors(path, number_of_descriptors);
+  cout << "Computing descriptors" << flush;
+  Mat descriptors = clustering::ComputeDescriptors(path, number_of_descriptors);
+  cout << "\t\tDONE" << endl;
 
   // Cluster the descriptors
-  cout << "Creating vocabulary" << endl;
-  // TermCriteria(int type, int maxCount, double epsilon) 
-  TermCriteria tc(CV_TERMCRIT_ITER, 100, 0.001);
-  Mat vocabulary;
-  Mat centers;
-  kmeans(features_unclustered, K, vocabulary, tc, 1, KMEANS_PP_CENTERS, centers);
-  cout << "Vocabulary created" << endl;
+  cout << "Creating vocabulary";
+  Mat vocabulary = clustering::CreateVocabulary(descriptors, K);
+  cout << "\t\tDONE" << endl;
 
   return 0;
 }

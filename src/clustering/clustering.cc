@@ -18,11 +18,10 @@ Mat ComputeDescriptors(string path, int number_of_descriptors) {
   struct dirent *directory_entry;
 
   // To store all descriptors
-  Mat features_unclustered;
+  Mat descriptors_unclustered;
 
   // Read images and get descriptors
   if (directory = opendir(c)) {
-    cout << "Computing descriptors from images in folder: " << path << endl;
     while ((directory_entry = readdir(directory))) {
       // Get filename
       string s = directory_entry->d_name;
@@ -34,25 +33,42 @@ Mat ComputeDescriptors(string path, int number_of_descriptors) {
         Mat descriptors;
 
         // Calculate maximum descriptors per image
-        // TODO: 500 is the number of images in the train folder. Should be 
+        // TODO: 500 is the number of images in the train folder. Should be
         // calculated, not a magic number
         int max_descriptors = number_of_descriptors / 500;
 
         // Create SIFT feature descriptor extractor
         SiftDescriptorExtractor detector(max_descriptors);
 
+        // Read an image
         Mat image = ReadImage(path + s);
+
+        // Compute descriptors
         detector.detect(image, keypoints);
         detector.compute(image, keypoints, descriptors);
-        features_unclustered.push_back(descriptors);
-        cout << "." << flush;
+
+        // Add descriptors
+        descriptors_unclustered.push_back(descriptors);
       }
     }
-    cout << endl << "Descriptors obtained" << endl;
     // Close directory
     closedir(directory);
   }
-  return features_unclustered;
+  return descriptors_unclustered;
 }
 
-} // namespace clustering
+Mat CreateVocabulary(Mat &descriptors, int K) {
+  // Initialize a TermCriteria with 100 iterations and 0.001 as error
+  TermCriteria tc(CV_TERMCRIT_ITER, 100, 0.001);
+
+  // Create vocabulary and
+  Mat labels;
+  Mat vocabulary;
+
+  // Apply K-means
+  kmeans(descriptors, K, labels, tc, 1, KMEANS_PP_CENTERS, vocabulary);
+  
+  return vocabulary;
+}
+
+}  // namespace clustering

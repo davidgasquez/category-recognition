@@ -3,9 +3,10 @@
 #ifndef CLUSTERING_H_
 #define CLUSTERING_H_
 
+#include "dirent.h"
 #include <opencv2/opencv.hpp>
 #include <opencv2/nonfree/nonfree.hpp>
-#include "dirent.h"
+#include <string>
 #include <vector>
 
 using namespace std;
@@ -18,6 +19,9 @@ extern Mat ReadImage(string image_path);
 
 // Computes descriptors of forlder's images
 extern Mat ComputeDescriptors(string path, int number_of_descriptors);
+
+// Cluster the features into K bags
+extern Mat CreateVocabulary(Mat &descriptors, int K);
 
 }  // namespace clustering
 
