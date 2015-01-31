@@ -1,6 +1,6 @@
 paths = ['#src']
 flags = ['-Werror', '-g']
-libs = ['opencv_core', 'opencv_highgui', 'opencv_imgproc', 'opencv_nonfree', 'opencv_features2d']
+libs = ['opencv_core', 'opencv_highgui', 'opencv_imgproc', 'opencv_nonfree', 'opencv_features2d', 'opencv_ml']
 libpaths = []
 
 #Source files
@@ -9,4 +9,11 @@ clustering/main.cc
 clustering/clustering.cc
 ''')
 
+#Source files
+bow_sources = Split('''
+bow/main.cc
+bow/bow.cc
+''')
+
 Program('../bin/clustering', clustering_sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)
+Program('../bin/bow', bow_sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)

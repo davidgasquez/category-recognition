@@ -7,7 +7,7 @@ int main(int argc, char const *argv[]) {
   if (argc != 4) {
     cerr << "Wrong number of parameters" << endl;
     cerr << "Usage: ./clustering <images path>";
-    cerr << "<number of descriptors> <number of clusters>" << endl;
+    cerr << " <number of descriptors> <number of clusters>" << endl;
     return -1;
   }
   cout << endl;
@@ -20,11 +20,18 @@ int main(int argc, char const *argv[]) {
   // Compute decriptors for images in folder path
   cout << "Computing descriptors" << flush;
   Mat descriptors = clustering::ComputeDescriptors(path, number_of_descriptors);
-  cout << "\t\tDONE" << endl;
+  cout << "\t\tDONE  " << descriptors.rows << " descriptors obtained" << endl;
 
   // Cluster the descriptors
-  cout << "Creating vocabulary";
+  cout << "Creating vocabulary" << flush;
   Mat vocabulary = clustering::CreateVocabulary(descriptors, K);
+  cout << "\t\tDONE" << endl;
+
+  // Save vocabulary into a file
+  cout << "Saving vocabulary" << flush;
+  FileStorage fs("resources/vocabulary.yml", FileStorage::WRITE);
+  fs << "vocabulary" << vocabulary;
+  fs.release();
   cout << "\t\tDONE" << endl;
 
   return 0;
