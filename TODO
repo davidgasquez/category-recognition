@@ -1,3 +1,3 @@
-- Normalize SIFT descriptors
-- ¿Input files?
-- Test with differents extractors, matchers and detectors
+- Normalize SIFT descriptors -> ¿Already normalized?
+- Test with differents extractors, matchers and detectors. Also, 
+  change parameters in KNN and SVM.

@@ -13,6 +13,9 @@ using namespace std;
 using namespace cv;
 
 // Compute histograms from images in folder path
-Mat ComputeHistograms(string image_path, Mat &vocabulary);
+void ComputeFolderHistograms(string train_folder_path,
+                             const Mat &vocabulary,
+                             Mat &training_data,
+                             Mat &training_labels);
 
 #endif  // BOW_H_
