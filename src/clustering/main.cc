@@ -6,7 +6,7 @@ int main(int argc, char const *argv[]) {
   // Check parameters
   if (argc != 4) {
     cerr << "Wrong number of parameters" << endl;
-    cerr << "Usage: ./clustering <images path>";
+    cerr << "Usage: ./clustering <images folder path>";
     cerr << " <number of descriptors> <number of clusters>" << endl;
     return -1;
   }
