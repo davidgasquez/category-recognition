@@ -12,14 +12,7 @@
 using namespace std;
 using namespace cv;
 
-namespace bow {
-
-// Compute histogram from an image
-extern Mat ComputeHistograms(Mat &image);
-
 // Compute histograms from images in folder path
-extern Mat ComputeHistograms(string image_path);
-
-}  // namespace bow
+Mat ComputeHistograms(string image_path, Mat &vocabulary);
 
 #endif  // BOW_H_

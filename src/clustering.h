@@ -12,17 +12,13 @@
 using namespace std;
 using namespace cv;
 
-namespace clustering {
-
 // Read Image from path
-extern Mat ReadImage(string image_path);
+Mat ReadImage(string image_path);
 
 // Computes descriptors of forlder's images
-extern Mat ComputeDescriptors(string path, int number_of_descriptors);
+Mat ComputeDescriptors(string path, int number_of_descriptors);
 
 // Cluster the features into K bags
-extern Mat CreateVocabulary(Mat &descriptors, int K);
-
-}  // namespace clustering
+Mat CreateVocabulary(Mat &descriptors, int K);
 
 #endif  // CLUSTERING_H_

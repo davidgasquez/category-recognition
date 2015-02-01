@@ -1,8 +1,6 @@
 // Copyright 2015 David Gasquez
 
-#include "clustering/clustering.h"
-
-namespace clustering {
+#include "clustering.h"
 
 Mat ReadImage(string image_path) {
   Mat output = imread(image_path, CV_LOAD_IMAGE_GRAYSCALE);
@@ -67,8 +65,42 @@ Mat CreateVocabulary(Mat &descriptors, int K) {
 
   // Apply K-means
   kmeans(descriptors, K, labels, tc, 1, KMEANS_PP_CENTERS, vocabulary);
-  
+
   return vocabulary;
 }
 
-}  // namespace clustering
+int main(int argc, char const *argv[]) {
+  // Check parameters
+  if (argc != 4) {
+    cerr << "Wrong number of parameters" << endl;
+    cerr << "Usage: ./make_vocabulary <images folder path>";
+    cerr << " <number of descriptors> <number of clusters>" << endl;
+    return -1;
+  }
+  cout << endl;
+
+  // Get parameters
+  string path = argv[1];
+  int number_of_descriptors = atoi(argv[2]);
+  int K = atoi(argv[3]);
+
+  // Compute decriptors for images in folder path
+  cout << "Computing descriptors" << flush;
+  Mat descriptors = ComputeDescriptors(path, number_of_descriptors);
+  cout << "\t\tDONE  " << descriptors.rows << " descriptors obtained" << endl;
+
+  // Cluster the descriptors
+  cout << "Creating vocabulary" << flush;
+  Mat vocabulary = CreateVocabulary(descriptors, K);
+  cout << "\t\tDONE" << endl;
+
+  // Save vocabulary into a file
+  cout << "Saving vocabulary" << flush;
+  FileStorage fs("resources/vocabulary.yml", FileStorage::WRITE);
+  fs << "vocabulary" << vocabulary;
+  fs.release();
+  cout << "\t\tDONE" << endl;
+
+  return 0;
+}
+
