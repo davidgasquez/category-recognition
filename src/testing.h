@@ -3,6 +3,7 @@
 #ifndef TESTING_H_
 #define TESTING_H_
 
+#include <dirent.h>
 #include <opencv2/opencv.hpp>
 #include <opencv2/nonfree/nonfree.hpp>
 #include <string>
