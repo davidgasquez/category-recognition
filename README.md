@@ -1,7 +1,7 @@
 Category Recognition
 ====================
 
-This tool allows image classification into 101 different categories using OpenCV
+This tool allows image classification into different categories using OpenCV
 and Machine Learning techniques.
 
 Dependencies

@@ -1,6 +1,6 @@
 paths = ['#src']
 flags = ['-Werror', '-g']
-libs = ['opencv_core', 'opencv_highgui', 'opencv_imgproc', 'opencv_nonfree', 'opencv_features2d', 'opencv_ml']
+libs = ['opencv_core', 'opencv_highgui', 'opencv_nonfree', 'opencv_features2d', 'opencv_ml']
 libpaths = []
 
 #Source files

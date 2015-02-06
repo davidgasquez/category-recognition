@@ -87,7 +87,7 @@ int main(int argc, char const *argv[]) {
   // Compute decriptors for images in folder path
   cout << "Computing descriptors" << flush;
   Mat descriptors = ComputeDescriptors(path, number_of_descriptors);
-  cout << "\t\tDONE  " << descriptors.rows << " descriptors obtained" << endl;
+  cout << "\t\tDONE  " << endl;
 
   // Cluster the descriptors
   cout << "Creating vocabulary" << flush;
