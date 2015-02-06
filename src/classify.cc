@@ -7,10 +7,10 @@ int main(int argc, char const *argv[]) {
   // Check parameters
   if (argc != 4) {
     cerr << "Wrong number of parameters" << endl;
-    cerr << "Usage: ./classify <vocabulary_file_path> <SVM_path> <image_path>" << endl;
+    cerr << "Usage: ./classify <vocabulary_file_path> ";
+    cerr << "<SVM_path> <image_path>" << endl;
     return -1;
   }
-  cout << endl;
 
   // Get parameters
   string vocabulary_file_path = argv[1];
@@ -42,6 +42,7 @@ int main(int argc, char const *argv[]) {
   // Set the dictionary
   bow_descriptor_extractor.setVocabulary(vocabulary);
 
+  // Read image
   Mat image = imread(image_path, CV_LOAD_IMAGE_GRAYSCALE);
 
   // Get keypoints
@@ -52,7 +53,8 @@ int main(int argc, char const *argv[]) {
   Mat bow_histogram;
   bow_descriptor_extractor.compute(image, keypoints, bow_histogram);
 
-  cout << "This image is: " << SVM.predict(bow_histogram) << endl << endl;
+  // --------------------------------------------------------------------------- Add dictionary with category names
+  cout << "This image is: " << SVM.predict(bow_histogram) << endl;
 
   return 0;
 }

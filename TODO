@@ -1,4 +1,4 @@
 - Normalize SIFT descriptors -> ¿Already normalized?
 - Test with differents extractors, matchers and detectors. Also, 
   change parameters in KNN and SVM.
-- Try some references!
+- Add labels to a dictionary

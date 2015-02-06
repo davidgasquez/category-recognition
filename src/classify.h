@@ -6,7 +6,6 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/nonfree/nonfree.hpp>
 #include <string>
-#include <vector>
 
 using namespace std;
 using namespace cv;
