@@ -1,9 +1,8 @@
 // Copyright 2015 David Gasquez
 
-#ifndef TEST_H_
-#define TEST_H_
+#ifndef CLASSIFY_H_
+#define CLASSIFY_H_
 
-#include "dirent.h"
 #include <opencv2/opencv.hpp>
 #include <opencv2/nonfree/nonfree.hpp>
 #include <string>
@@ -12,4 +11,4 @@
 using namespace std;
 using namespace cv;
 
-#endif  // TEST_H_
+#endif  // CLASSIFY_H_

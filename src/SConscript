@@ -14,10 +14,16 @@ bow.cc
 ''')
 
 #Source files
+classify_sources = Split('''
+classify.cc
+''')
+
+#Source files
 test_sources = Split('''
-test.cc
+testing.cc
 ''')
 
 Program('../bin/make_vocabulary', clustering_sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)
 Program('../bin/bow', bow_sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)
+Program('../bin/classify', classify_sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)
 Program('../bin/test', test_sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)

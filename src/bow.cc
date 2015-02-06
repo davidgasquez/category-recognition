@@ -80,6 +80,7 @@ void ComputeFolderHistograms(string train_folder_path,
           }
         }
         // Close sub directory
+        //---------------------------------------------------------------------- Add labels to a dictionary
         closedir(sub_directory);
         label++;
       }
