@@ -110,8 +110,6 @@ int main(int argc, char const *argv[]) {
   fs["vocabulary"] >> vocabulary;
   fs.release();
 
-
-
   // Load the SVM
   CvSVM SVM;
   SVM.load(SVM_path.c_str());
@@ -124,7 +122,9 @@ int main(int argc, char const *argv[]) {
                           test_data, test_labels);
   cout << "\t\tDONE" << endl;
 
-  Mat confussion_matrix = Mat::zeros(3, 3, CV_8UC1);
+  // Get number of categories (last image label)
+  int categories = test_labels.at<int>(test_data.rows - 1, 0) + 1;
+  Mat confussion_matrix = Mat::zeros(categories, categories, CV_8UC1);
 
   cout << "Making predictions" << flush;
   for (int i = 0; i < test_data.rows; ++i) {
