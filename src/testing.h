@@ -1,15 +1,15 @@
 // Copyright 2015 David Gasquez
 
-#ifndef TESTING_H_
-#define TESTING_H_
+#ifndef SRC_TESTING_H_
+#define SRC_TESTING_H_
 
-#include <dirent.h>
 #include <opencv2/opencv.hpp>
 #include <opencv2/nonfree/nonfree.hpp>
 #include <string>
 #include <vector>
+#include "dirent.h"
 
 using namespace std;
 using namespace cv;
 
-#endif  // TESTING_H_
+#endif  // SRC_TESTING_H_

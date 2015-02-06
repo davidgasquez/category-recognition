@@ -30,9 +30,7 @@ Mat ComputeDescriptors(string path, int number_of_descriptors) {
         vector<KeyPoint> keypoints;
         Mat descriptors;
 
-        // Calculate maximum descriptors per image
-        // TODO: 500 is the number of images in the train folder. Should be
-        // calculated, not a magic number
+        // Calculate maximum descriptors per image (500 folder images)
         int max_descriptors = number_of_descriptors / 500;
 
         // Create SIFT feature descriptor extractor
@@ -55,7 +53,7 @@ Mat ComputeDescriptors(string path, int number_of_descriptors) {
   return descriptors_unclustered;
 }
 
-Mat CreateVocabulary(Mat &descriptors, int K) {
+Mat CreateVocabulary(const Mat &descriptors, int K) {
   // Initialize a TermCriteria with 100 iterations and 0.001 as error
   TermCriteria tc(CV_TERMCRIT_ITER, 100, 0.001);
 
@@ -77,7 +75,6 @@ int main(int argc, char const *argv[]) {
     cerr << " <number of descriptors> <number of clusters>" << endl;
     return -1;
   }
-  cout << endl;
 
   // Get parameters
   string path = argv[1];

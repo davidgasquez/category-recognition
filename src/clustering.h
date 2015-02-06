@@ -1,13 +1,13 @@
 // Copyright 2015 David Gasquez
 
-#ifndef CLUSTERING_H_
-#define CLUSTERING_H_
+#ifndef SRC_CLUSTERING_H_
+#define SRC_CLUSTERING_H_
 
-#include "dirent.h"
 #include <opencv2/opencv.hpp>
 #include <opencv2/nonfree/nonfree.hpp>
 #include <string>
 #include <vector>
+#include "dirent.h"
 
 using namespace std;
 using namespace cv;
@@ -19,6 +19,6 @@ Mat ReadImage(string image_path);
 Mat ComputeDescriptors(string path, int number_of_descriptors);
 
 // Cluster the features into K bags
-Mat CreateVocabulary(Mat &descriptors, int K);
+Mat CreateVocabulary(const Mat &descriptors, int K);
 
-#endif  // CLUSTERING_H_
+#endif  // SRC_CLUSTERING_H_

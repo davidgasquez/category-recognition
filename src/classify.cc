@@ -3,7 +3,6 @@
 #include "classify.h"
 
 int main(int argc, char const *argv[]) {
-
   // Check parameters
   if (argc != 4) {
     cerr << "Wrong number of parameters" << endl;

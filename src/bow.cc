@@ -97,7 +97,6 @@ int main(int argc, char const *argv[]) {
     cerr << "Usage: ./bow <vocabulary_file_path> <train_images_folder>" << endl;
     return -1;
   }
-  cout << endl;
 
   // Get parameters
   string vocabulary_file_path = argv[1];
