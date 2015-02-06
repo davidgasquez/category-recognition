@@ -118,7 +118,6 @@ int main(int argc, char const *argv[]) {
                           training_data, training_labels);
   cout << "\t\tDONE" << endl;
 
-  // TODO: Save SVM, not this
   cout << "Saving training histograms" << flush;
   FileStorage output("resources/histograms.yml", FileStorage::WRITE);
   output << "histograms" << training_data;
@@ -126,16 +125,16 @@ int main(int argc, char const *argv[]) {
   output.release();
   cout << "\t\tDONE" << endl;
 
-  /*
-    // Train the SVM
-    cout << "Training SVM" << flush;
-    CvSVMParams SVM_params;
-    CvSVM SVM;
-    SVM.train_auto(training_data, training_labels, Mat(), Mat(), SVM_params);
-    SVM.save("test.xml");
-    SVM.load("test.xml");
-    cout << "\t\tDONE" << endl;
-  */
+  // Train the SVM
+  cout << "Training SVM" << flush;
+  CvSVMParams SVM_params;
+  CvSVM SVM;
+  SVM.train_auto(training_data, training_labels, Mat(), Mat(), SVM_params);
+  cout << "\t\tDONE" << endl;
+
+  cout << "Saving SVM" << flush;
+  SVM.save("resources/SVM.xml");
+  cout << "\t\tDONE" << endl;
 
   return 0;
 }

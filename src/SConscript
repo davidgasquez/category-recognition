@@ -13,5 +13,11 @@ bow_sources = Split('''
 bow.cc
 ''')
 
+#Source files
+test_sources = Split('''
+test.cc
+''')
+
 Program('../bin/make_vocabulary', clustering_sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)
 Program('../bin/bow', bow_sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)
+Program('../bin/test', test_sources, CPPPATH=paths, CPPFLAGS=flags, LIBPATH=libpaths, LIBS=libs)

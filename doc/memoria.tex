@@ -109,7 +109,7 @@ problemas:
 \begin{enumerate}
   \item Extraer un número considerable de descriptores SIFT(entre 50.000 y 
   100.000) de un conjunto de imágenes cualesquiera
-  \item Realizar entre 200 y 1500 clústeres usándo la técnica KNN con los
+  \item Realizar entre 200 y 1500 clústeres usando la técnica KNN con los
   descriptores SIFT
   \item Obtener de cada categoría un conjunto de imágenes de entrenamiento, de
   las cuales obtenemos los descriptores SIFT densos para contrastarlos con los
@@ -121,6 +121,66 @@ problemas:
 
 \newpage
 \section{Implementación}
+
+La implementación del proyecto se ha llevado a cabo en el lenguaje de 
+programación C++. También se ha usado scripts bash para facilitar algunas
+tareas. 
+
+\subsection{Clustering}
+
+La primera parte ha consistido en realizar un módulo que fuese capáz de leer
+imágenes de una carpeta y calcular los descriptores de dichas imágenes.
+
+Los descriptores se han seleccionado uniformemente entre las imágenes y se 
+obtienen a partir de la técnica SIFT; Una vez tenemos el vector de imágenes y
+el número de descriptores(puntos SIFT) que queremos obtener, realizamos la 
+división para obtener el número máximo de descriptores por imágen.
+
+Cuando disponemos del vector con todos los descriptores de las imágenes 
+proporcionadas, pasamos a agruparlos usando KNN. Esto se realiza usando
+la función \texttt{kmeans()} de OpenCV, dicha función devuelve los centros
+de los clústeres que hemos decidido hacer($K$). Los clústeres forman nuestro
+vocabulario.
+
+\subsection{Bag Of Words}
+
+Ya tenemos el vocabulario calculado, ahora proseguimos aplicando la técnica
+Bag Of Words o Bag Of Features. El objetivo de esta fase es obtener un 
+descriptor que represente a cada imagen. El descriptor se puede obtener
+realizando los siguientes pasos.
+
+Por cada imagen a la que queremos calcular su descriptor BoW, tenemos que 
+obtener una gran cantidad de puntos SIFT(Denso). Con estos puntos SIFT podemos
+realizar un histograma(que será nuestro descriptor BoW) comparando cada 
+descriptor con nuestro vocabulario para hayar la palabra más cercana que 
+dé el voto a dicha ``palabra''.
+
+Cuando hemos terminado con una imagen deberíamos tener un vector con $K$ 
+posiciónes y en cada posición el número de veces que un descriptor SIFT de la 
+imagen original ha quedado cerca de la ``palabra''.
+
+Este es el descriptor que nos sirve para identificar cada imagen. Dicho esto
+procedemos a entrenar una máquina de soporte vectorial con los descriptores de
+un conjunto de imágenes que representen el mismo ``concepto''.  Cada conjunto
+de imágenes será una categoría. 
+
+\subsection{Test}
+
+La última parte se trata de comprobar como han sido de efectivos nuestros 
+descriptores, para ello calculamos la matriz de confusión, que nos ofrece una 
+forma rápida y fácil de ver los resultados.
+
+Se han separado las imágenes de la base de datos Caltech101 en dos grupos.
+Un grupo con el 70\% de las imágenes de cada categoría que se usa para el 
+entrenamiendo de la SVM. Y otro grupo con las imágenes de test para poder
+realizar la matriz de confusión.
+
+También se ha creado una ejecutable para poder clasificar imágenes aisladas.
+La clasificación se ha limitado a las 101 clases de la base de datos. No se 
+proporciona la opción de ``otros'' que puede ser interesante si queremos un 
+clasificador general. Si se quisiera añadir esta opción, solo habría que 
+establecer un humbral a partir del cual los objetos no son de ninguna clase 
+conocida.
 
 \newpage
 \section{Experimentación}
@@ -137,6 +197,11 @@ problemas:
 
 \newpage
 \begin{thebibliography}{99}
+
+\bibitem{VCBOW01}
+ \textbf{ Visual Categorization with Bags of Keypoints}. 
+ \emph{Gabriella Csurka, Christopher R. Dance, Lixin Fan, Jutta Willamowski, Cédric Bray.}
+ 2004 
 
 \end{thebibliography}
 
