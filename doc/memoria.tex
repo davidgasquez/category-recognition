@@ -157,7 +157,17 @@ dé el voto a dicha ``palabra''.
 
 Cuando hemos terminado con una imagen deberíamos tener un vector con $K$ 
 posiciónes y en cada posición el número de veces que un descriptor SIFT de la 
-imagen original ha quedado cerca de la ``palabra''.
+imagen original ha quedado cerca de la ``palabra''. Para que la clasificación
+funcione bien con las máquina de soporte vectorial, tenemos que normalizar
+el histograma resultante. En este paso se ha utilizado la función de OpenCV
+\texttt{BOWImgDescriptorExtractor::compute}\footnote{ La documentación y 
+descripción breve del funcionamiento puede encontrarse en
+\url{http://docs.opencv.org/modules/features2d/doc/object_categorization.html}
+
+La implementación se puede consultar en 
+\url{https://github.com/Itseez/opencv/blob/master/modules/features2d/src/bagofwords.cpp}
+} que sigue el esquema general para calcular el descriptor según la técnica
+\emph{Bag of Visual Words}.
 
 Este es el descriptor que nos sirve para identificar cada imagen. Dicho esto
 procedemos a entrenar una máquina de soporte vectorial con los descriptores de
@@ -199,7 +209,7 @@ conocida.
 \begin{thebibliography}{99}
 
 \bibitem{VCBOW01}
- \textbf{ Visual Categorization with Bags of Keypoints}. 
+ \textbf{Visual Categorization with Bags of Keypoints}. 
  \emph{Gabriella Csurka, Christopher R. Dance, Lixin Fan, Jutta Willamowski, Cédric Bray.}
  2004 
 

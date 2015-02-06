@@ -72,7 +72,7 @@ void ComputeFolderHistograms(string train_folder_path,
             Mat bow_histogram;
             bow_descriptor_extractor.compute(image, keypoints, bow_histogram);
 
-            // Add histogram to matrix
+            // Add nomalized frequency histogram to matrix
             training_data.push_back(bow_histogram);
 
             // Add label
@@ -119,6 +119,7 @@ int main(int argc, char const *argv[]) {
                           training_data, training_labels);
   cout << "\t\tDONE" << endl;
 
+  // Save training histograms (not needed)
   cout << "Saving training histograms" << flush;
   FileStorage output("resources/histograms.yml", FileStorage::WRITE);
   output << "histograms" << training_data;

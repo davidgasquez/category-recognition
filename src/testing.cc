@@ -126,6 +126,7 @@ int main(int argc, char const *argv[]) {
   int categories = test_labels.at<int>(test_data.rows - 1, 0) + 1;
   Mat confussion_matrix = Mat::zeros(categories, categories, CV_8UC1);
 
+  // Make predictions
   cout << "Making predictions" << flush;
   for (int i = 0; i < test_data.rows; ++i) {
     int predicted_label = SVM.predict(test_data.row(i));
@@ -134,8 +135,17 @@ int main(int argc, char const *argv[]) {
   }
   cout << "\t\tDONE" << endl;
 
+  // Print confussion matrix
   cout << "Confussion Matrix" << endl;
   cout << confussion_matrix << endl;
+
+  // Compute test rate
+  double correct = 0;
+  for (int i = 0; i < confussion_matrix.rows; ++i) {
+    correct += confussion_matrix.at<uchar>(i, i);
+  }
+  double test_rate = correct / test_data.rows;
+  cout << "Test rate = " << test_rate << endl;
 
   return 0;
 }
