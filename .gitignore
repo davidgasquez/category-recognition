@@ -4,3 +4,4 @@ resources
 .sconsign.dblite
 doc/*
 !doc/*.tex
+!doc/charts

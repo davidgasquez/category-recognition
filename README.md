@@ -16,10 +16,12 @@ Resources Structure
     - category_1/
     - category_2/
     - category_3/
+    - ...
   - categories_test/
     - category_1/
     - category_2/
     - category_3/
+    - ...
 
 Run
 ---

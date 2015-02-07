@@ -33,6 +33,8 @@
 % Hipervínculos
 \usepackage[colorlinks=false, pdfborder={0 0 0}]{hyperref}
 
+\usepackage[table,xcdraw]{xcolor}
+
 % Información del Documento
 \title{
 \huge \bfseries Memoria
@@ -195,11 +197,103 @@ conocida.
 \newpage
 \section{Experimentación}
 
+Antes de empezar, vamos a crear un subconjunto de clases aleatorias para poder
+realizar los test en un tiempo razonable\footnote{Dado el tamaño de la base de 
+datos, no se ha conseguido completar una ejecución completa con las 101 clases
+que disponíamos al principio, con 10 clases, el tiempo de ejecución es de 
+20 minutos}. Una vez seleccionadas ejecutamos el 
+clasificador BoW y comprobamos con el conjunto de test. El porcentaje 
+de acierto es del $75,73\%$ con 50.000 descriptores y 500 clústeres. Los 
+parámetros del matcher, descriptor y extractor son los parámetros por defecto.
+Se está usando un matcher por fuerza bruta(L2 por defecto), un detector de
+puntos de interés denso\footnote{\url{http://docs.opencv.org/modules/features2d/doc/common_interfaces_of_feature_detectors.html\#densefeaturedetector}}, este detector genera varios niveles de puntos de 
+interés que se reparten en una cuadrícula por la imágen. Y por último, el 
+extractor de puntos es SIFT. 
+
+La matriz de confusión de la ejecución es la siguiente
+\begin{table}[h]
+\centering
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|}
+\cline{2-11}
+ & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} \\ \hline
+\multicolumn{1}{|c|}{\textbf{1}} & \cellcolor[HTML]{dddddd}{\color[HTML]{343434} 3} & 1 & 0 & 0 & 1 & 0 & 1 & 3 & 1 & 0 \\ \hline
+\multicolumn{1}{|c|}{\textbf{2}} & 1 & \cellcolor[HTML]{dddddd}1 & 1 & 1 & 0 & 2 & 0 & 3 & 2 & 1 \\ \hline
+\multicolumn{1}{|c|}{\textbf{3}} & 0 & 7 & \cellcolor[HTML]{dddddd}9 & 0 & 0 & 1 & 0 & 2 & 0 & 0 \\ \hline
+\multicolumn{1}{|c|}{\textbf{4}} & 0 & 0 & 0 & \cellcolor[HTML]{dddddd}11 & 1 & 1 & 0 & 1 & 0 & 0 \\ \hline
+\multicolumn{1}{|c|}{\textbf{5}} & 1 & 1 & 4 & 1 & \cellcolor[HTML]{dddddd}4 & 1 & 2 & 3 & 0 & 0 \\ \hline
+\multicolumn{1}{|c|}{\textbf{6}} & 0 & 0 & 0 & 2 & 0 & \cellcolor[HTML]{dddddd}19 & 1 & 2 & 0 & 0 \\ \hline
+\multicolumn{1}{|c|}{\textbf{7}} & 1 & 0 & 3 & 0 & 0 & 3 & \cellcolor[HTML]{dddddd}10 & 1 & 0 & 0 \\ \hline
+\multicolumn{1}{|c|}{\textbf{8}} & 0 & 0 & 0 & 0 & 1 & 1 & 0 & \cellcolor[HTML]{dddddd}128 & 0 & 0 \\ \hline
+\multicolumn{1}{|c|}{\textbf{9}} & 0 & 0 & 1 & 0 & 0 & 3 & 0 & 0 & \cellcolor[HTML]{dddddd}13 & 0 \\ \hline
+\multicolumn{1}{|c|}{\textbf{10}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 3 & 0 & \cellcolor[HTML]{dddddd}8 \\ \hline
+\end{tabular}
+\end{table}
+
+Podemos ver que en la fila 8, que representa a la categoría de caras, al tener 
+muchas muestras y clasificarlas bien en su mayoría, está ayudando a que el ratio
+de acierto sea bueno. En la mayoría de las categorías, se predice más veces 
+correctamente que incorrectamente, salvo en la segunda categoría, que representa
+la categoría de ``hormigas''.
+
+Vamos a ir analizando los cambios en los parámetros de cada módulo, para 
+intentar conseguir el máximo de aciertos con nuestras 10 clases.
+
+\subsection{Creación del Vocabulario}
+Vamos a comenzar viendo el impacto del número de descriptores a la hora de
+crear el vocabulario en la tasa de aciertos, que será nuestra medida a 
+optimizar. Se ejecuta con un rango desde 50.000 descriptores hasta 100.000 y 
+siempre creando 500 clústeres(palabras visuales). 
+
+% INSERTAR GRAFICA
+
+% COMENTAR GRAFICA
+
+% REHACER CAMBIANDO EL NÚMERO DE CLUSTERES [200,1500]
+
+% INSERTAR GRAFICA
+
+% COMENTAR GRAFICA
+
+% DECIDIR CON QUÉ VALORES NOS QUEDAMOS
+
+\subsection{Bag of Words}
+
+% CAMBIOS EN EL MATCHER
+
+% CAMBIOS EN EL DETECTOR
+
+% CAMBIOS EN EL EXTRACTOR
+
+\subsection{Otras mejoras}
+
+% CITAR QUE PODRIAN HACERSE CAMBIOS EN LA SVM
+
+% CITAR QUE PODRIAN CAMBIARSE LA FORMA DE COMPUTAR LOS DESCRIPTORES Y HACERLOS PIRAMIDALES 
+
 \newpage
 \section{Resultados}
 
+% COMENTAR LOS RESULTADOS GENERALES
+
+% COMENTAR LA DIFICULTAD DE LEER LA BASE DE DATOS
+
+% COMENTAR LOS RESULTADOS QUE SE OBTIENEN CON OTRAS CATEGORIAS, MAS Y MENOS
+
 \newpage
 \section{Conclusiones}
+
+% DECIR DESVENTAJAS Y VENTAJAS DEL METODO
+
+% POSIBLES USOS
+
+% COMPARAR LOS RESULTADOS CON TECNICAS ACTUALES
+
+% EL SIGUIENTE PASO SERIA ENTRENAR CON TODO EL SET DE DATOS PARA OBTENER TODA LA INFORMACION
+
+Se ha facilitado el código online en la plataforma Github, además, se 
+proporcionan las herramientas e instrucciones necesarias para que personas sin 
+conocimiento en visión por computador puedan recrear el experimento de forma
+sencilla. 
 
 %-------------------------------------------------------------------------------
 % Bibliografía
