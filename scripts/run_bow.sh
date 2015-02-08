@@ -1,5 +1,6 @@
 #! /bin/sh
 
+make
 clear
 echo
 echo "\t\t  Computing Bag of Words and training SVM"

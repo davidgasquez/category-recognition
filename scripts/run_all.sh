@@ -5,7 +5,7 @@ echo
 echo "\t\t\t  Making vocabulary"
 echo 
 echo "-------------------------------------------------------------------------"
-./bin/make_vocabulary resources/random_images/ 50000 200
+./bin/make_vocabulary resources/random_images/ 50000 800
 echo "-------------------------------------------------------------------------"
 
 echo
