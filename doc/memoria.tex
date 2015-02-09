@@ -246,25 +246,71 @@ siempre creando 500 clústeres(palabras visuales).
 
 \includegraphics[width=15cm]{charts/descriptors}
 
-% COMENTAR GRAFICA
+Los resultados los podemos observar en la gráfica anterior. Parece que el número
+de descriptores que necesitamos no afecta de forma significativa a el 
+porcentaje de aciertos. Esto puede ser debido a que con los 50000 descriptores
+que tenemos al principio ya cubrimos el rango de ``palabras importantes'' para 
+luego agrupar. 
+
+Vamos a ver si mantenemos fijo el numero de descriptores a 50.000
+y vamos alterando desde los 200 a los 1500 clústeres, como evoluciona el ratio
+de aciertos.
 
 \includegraphics[width=15cm]{charts/clusters}
 
-% COMENTAR GRAFICA
+Al igual que pasaba anteriormente, al variar el número de clústeres tampoco 
+parece haber impacto significativo en las predicciones. De nuevo, es posible que
+con un número de clústeres elevado, muchos no sean importantes y nunca sean
+``votados''.
 
-% DECIDIR CON QUÉ VALORES NOS QUEDAMOS
+Ya que no existe gran diferencia entre las salidas que proporciona el programa,
+cuando se varía tanto descriptores como número de clústeres, vamos a tomar como
+referencia; número de descriptores 50.000 y 800 como número de clústeres para
+proceder a experimentar alterando los valores o el tipo de matcher, detector y
+extractor. El valor que tomamos como base después de esta experimentación es
+un ratio de 76,473\%
 
 \subsection{Bag of Words}
 
-% CAMBIOS EN EL MATCHER
+Primero vamos a ver el efecto del matcher. Para ello ejecutamos con el mismo
+\texttt{BFMatcher}, pero cambiando de \emph{norm} \texttt{L2} a \texttt{L1}. El resultado es la bajada de
+2 puntos en el resultado final 74,256\% , la otra opción es \texttt{NORM\_HAMMING}
+pero, tal como dice la documentación, \texttt{L2} y \texttt{L1} son los que se usan en SIFT.
 
-% CAMBIOS EN EL DETECTOR
+Mantenemos pués el mismo matcher(fuerza bruta con \texttt{L2}).
+Actualmente se está usando el detector de puntos de interés denso con los 
+parámetros por defecto, esto es, detectando puntos a una sola escala y con un
+tamaño de celda de 6. 
 
+Ejecutando el mismo detector, pero cambiando el tamaño de  celda de 6 a 3, 
+mejoramos hasta 76,89\%. No es una mejora significativa y el tiempo
+de cómputo se ha visto aumentado, por lo que seguimos intentando mejorar 
+cambiando de detector. 
+
+Con el detector \texttt{FAST} se obtiene
+
+FAST - 79.77
+SIFT - 71.16
+SURF - 81.25
+ORB - 72.42
+BRISK - 64.33
+MSER - 76.10
+GoodFeaturesToTrackDetector - 77.57
+Dense - 76.89
+
+PyramidAdaptedFeatureDetector FastFeatureDetector 83.45
 % CAMBIOS EN EL EXTRACTOR
 
 \subsection{Otras mejoras}
 
 % CITAR QUE PODRIAN HACERSE CAMBIOS EN LA SVM
+Otro de los cambios importantes que podrian aplicarse para mejorar el 
+rendimiento del predictor es configurar la máquina de soporte vectorial y no 
+usar parámetros automáticos, así puede que las predicciones sean más certeras.
+
+También es posible realizar cambios en la implementación de los descriptores e 
+implementar descriptores piramidales en los que se evaluan los puntos relevantes
+a varias escalas y se concatenan los ``histogramas''.
 
 % CITAR QUE PODRIAN CAMBIARSE LA FORMA DE COMPUTAR LOS DESCRIPTORES Y HACERLOS PIRAMIDALES 
 
@@ -280,18 +326,35 @@ siempre creando 500 clústeres(palabras visuales).
 \newpage
 \section{Conclusiones}
 
-% DECIR DESVENTAJAS Y VENTAJAS DEL METODO
+El procedimiento realizado posee ventajas como la facilidad de implementación
+y unos resultados asequibles, aunque con una base de datos grande se necesita
+mucha potencia de cómputo para que sea efectivo. La desventaja de la potencia o 
+tiempo de cómputo es importante en este problema ya que lo que se busca es 
+aprender el mayor número de categorias posibles para poder etiquetar un 
+repertorio más amplio. 
 
-% POSIBLES USOS
+En los últimos meses se han dado a conocer varios estudios que usan diversas 
+técnicas con el mismo propósito, saber lo que hay en una fotografía. Una de las
+técnicas con más potencial es el uso de redes neuronales para la clasificación
+\footnote{\url{http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40814.pdf}},
+y desde hace poco el uso de lo que se denomina \emph{deep learning}. Empresas como
+\url{http://www.clarifai.com/} ofrecen online su herramienta como demostración
+de lo que es posible alcanzar usando su tecnología.
 
-% COMPARAR LOS RESULTADOS CON TECNICAS ACTUALES
+Avanzar en este campo implica un gran impacto en la vida cotidiana en un futuro
+cercano, en donde automáticamente se puedan clasificar imágenes según su 
+contenido, o bien filtrar para realizar búsquedas más rápidamente. El aporte de 
+conocimiento que otorga la correcta categorización de un objeto o imagen es, 
+hoy en día, un valor importante en el mundo empresarial. 
 
-% EL SIGUIENTE PASO SERIA ENTRENAR CON TODO EL SET DE DATOS PARA OBTENER TODA LA INFORMACION
-
-Se ha facilitado el código online en la plataforma Github, además, se 
-proporcionan las herramientas e instrucciones necesarias para que personas sin 
-conocimiento en visión por computador puedan recrear el experimento de forma
-sencilla. 
+Se ha facilitado el código online en la plataforma
+\href{https://github.com/DavidGasquez/category-recognition}{\texttt{Github}},
+además, se  proporcionan las herramientas e instrucciones necesarias para que 
+personas sin conocimiento en visión por computador puedan recrear el experimento 
+de forma sencilla, y clasificar imágenes con la ejecución del módulo 
+independiente que lee el vocabulario y máquina de soporte vectorial creadas 
+anteriormente con toda la base de datos(juntando de nuevo test y entrenamiento)
+para clasificar nuevas imágenes.
 
 %-------------------------------------------------------------------------------
 % Bibliografía
@@ -303,7 +366,12 @@ sencilla.
 \bibitem{VCBOW01}
  \textbf{Visual Categorization with Bags of Keypoints}. 
  \emph{Gabriella Csurka, Christopher R. Dance, Lixin Fan, Jutta Willamowski, Cédric Bray.}
- 2004 
+ 2004 \url{https://www.cs.cmu.edu/~efros/courses/AP06/Papers/csurka-eccv-04.pdf}
+
+\bibitem{OpenCV} \url{http://docs.opencv.org/modules/features2d/doc/features2d.html}
+
+\bibitem{Blog} \href{http://www.morethantechnical.com/2011/08/25/a-simple-object-classifier-with-bag-of-words-using-opencv-2-3-w-code/}
+{http://www.morethantechnical.com/ - A simple object classifier with Bag-of-Words using OpenCV 2.3}
 
 \end{thebibliography}
 
