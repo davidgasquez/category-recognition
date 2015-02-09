@@ -19,6 +19,7 @@ void ComputeFolderHistograms(string train_folder_path,
 
   // Label
   int label = 0;
+  cout << endl << "Labels: " << endl;
 
   // Matcher
   Ptr<DescriptorMatcher> matcher(new BFMatcher());
@@ -80,7 +81,7 @@ void ComputeFolderHistograms(string train_folder_path,
           }
         }
         // Close sub directory
-        //---------------------------------------------------------------------- Add labels to a dictionary
+        cout << label << " ---> " << s << endl; 
         closedir(sub_directory);
         label++;
       }

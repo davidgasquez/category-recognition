@@ -285,30 +285,53 @@ tamaño de celda de 6.
 Ejecutando el mismo detector, pero cambiando el tamaño de  celda de 6 a 3, 
 mejoramos hasta 76,89\%. No es una mejora significativa y el tiempo
 de cómputo se ha visto aumentado, por lo que seguimos intentando mejorar 
-cambiando de detector. 
+cambiando de detector(cambiar los distintos parámetros del detector denso no
+afecta de manera importante al resultado). 
+Vamos a realizar una tabla comparativa de los distintos detectores para ver si
+mejoramos el detector actual con la ayuda de un script. La tabla es la 
+siguiente;
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
 
-% HACER TABLA
+\textbf{Dense} & \textit{76.47} \\ \hline
+\textbf{FAST}  & \textit{79.77} \\ \hline
+\textbf{SIFT}  & \textit{71.16} \\ \hline
+\textbf{SURF}  & \textit{81.25} \\ \hline
+\textbf{ORB}   & \textit{72.42} \\ \hline
+\textbf{BRISK} & \textit{64.33} \\ \hline
+\textbf{MSER}  & \textit{76.10} \\ \hline
+\textbf{GFTTD} & \textit{77.57} \\ \hline
+\end{tabular}
+\end{table}
 
-FAST - 79.77
-SIFT - 71.16
-SURF - 81.25
-ORB - 72.42
-BRISK - 64.33
-MSER - 76.10
-GoodFeaturesToTrackDetector - 77.57
-Dense - 76.89
+Como se puede observar, tenemos una mejora importante al usar el detector de 
+puntos de interés FAST y SURF, y el tiempo no se ve afectado. OpenCV también
+ofrece la posibilidad de realizar una detección de puntos piramidal, vamos a
+ ver si mejoramos.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{FAST Piramidal}  & \textit{83.45} \\ \hline
+\textbf{SURF Piramidal}  & \textit{80.51} \\ \hline
+\textbf{SIFT Piramidal}  & \textit{75.75} \\ \hline
+\textbf{Dense Piramidal} & \textit{77.15} \\ \hline
+\end{tabular}
+\end{table}
 
-% CAMBIO A PIRAMIDAL
+Los mejores resultados han sido obtenidos cuando se han detectado los puntos de
+interés con un detector piramidal de 2 niveles(por defecto) con el detector
+FAST\footnote{El algoritmo del detector se encuentra disponible 
+\href{http://docs.opencv.org/trunk/doc/py_tutorials/py_feature2d/py_fast/py_fast.html}
+{\texttt{\emph{aquí}}}.}. 
 
-PyramidAdaptedFeatureDetector FastFeatureDetector 83.45
-PyramidAdaptedFeatureDetector SURF 80.51
-PyramidAdaptedFeatureDetector SIFT 75.75
-PyramidAdaptedFeatureDetector Dense 77.15
-
+Mantenemos este detector como el definitivo para 
+nuestra pequeña base de datos de 10 clases y no vamos a realizar cambios en el 
+extractor de descriptores.
 
 \subsection{Otras mejoras}
-
-% CITAR QUE PODRIAN HACERSE CAMBIOS EN LA SVM
 Otro de los cambios importantes que podrian aplicarse para mejorar el 
 rendimiento del predictor es configurar la máquina de soporte vectorial y no 
 usar parámetros automáticos, así puede que las predicciones sean más certeras.
@@ -317,16 +340,33 @@ También es posible realizar cambios en la implementación de los descriptores e
 implementar descriptores piramidales en los que se evaluan los puntos relevantes
 a varias escalas y se concatenan los ``histogramas''.
 
-% CITAR QUE PODRIAN CAMBIARSE LA FORMA DE COMPUTAR LOS DESCRIPTORES Y HACERLOS PIRAMIDALES 
-
-\newpage
 \section{Resultados}
 
-% COMENTAR LOS RESULTADOS GENERALES
+El resultado que obtenemos al final es bastante aceptable. Tenemos un 
+\emph{categorizador} que es capaz de clasificar 10 clases aunque no tiene 
+funcionalidad para decir si una imagen de entrada no pertenece a ninguna de 
+ellas, pero el cambio sería trivial (mirar el porcentaje que devuelve la 
+máquina de soporte vectorial y decidir dado un humbral). 
 
-% COMENTAR LA DIFICULTAD DE LEER LA BASE DE DATOS
+Si experimentamos con distintos conjuntos de 10 clases aleatorias tomadas de 
+\texttt{Caltech101} obtenemos una media de 75\% de aciertos(7 tests). Cuando
+se añaden más clases, el porcentaje de aciertos se ve reducido y el tiempo de
+cómputo aumenta drásticamente. 
 
-% COMENTAR LOS RESULTADOS QUE SE OBTIENEN CON OTRAS CATEGORIAS, MAS Y MENOS
+Para el caso de distinguir si una categoría se encuentra en una foto dada. 
+Tomamos fotos de dicha categría en una carpeta y fotos al azar del resto de 
+categorías en el resto. Con el mismo código proporcionado se puede ejecutar.
+
+Como ejemplo, se ha creado un clasificador BoW con la categoría de ``portatil''
+en una carpeta donde se añaden las fotos de entrenamiento para portatil y otra
+con fotos aleatorias de \texttt{Caltech256}. El resultado para este 
+experimento es de una tasa de aciertos del 95\%. Como se deduce, con el aumento 
+del número de clases perdemos precisión.
+
+Si se tuviese acceso a un servidor se podría ejecutar con las 101 clases para 
+poder ver el rendimiento y compararlo con las publicaciones de las investigaciones
+realziadas\footnote{
+\url{http://zybler.blogspot.com.es/2009/08/table-of-results-for-famous-public.html}}.
 
 \newpage
 \section{Conclusiones}
@@ -353,13 +393,15 @@ conocimiento que otorga la correcta categorización de un objeto o imagen es,
 hoy en día, un valor importante en el mundo empresarial. 
 
 Se ha facilitado el código online en la plataforma
-\href{https://github.com/DavidGasquez/category-recognition}{\texttt{Github}},
-además, se  proporcionan las herramientas e instrucciones necesarias para que 
+\href{https://github.com/DavidGasquez/category-recognition}{\texttt{\emph{Github}}}
+(con las imagenes usadas organizadas correctamente, tanto para el multiclase 
+o el ejemplo con la clase portatil),
+además, se  proporcionan las herramientas e instrucciones necesarias(README.md) para que 
 personas sin conocimiento en visión por computador puedan recrear el experimento 
-de forma sencilla, y clasificar imágenes con la ejecución del módulo 
+de forma sencilla. Se permite clasificar imágenes con la ejecución del módulo 
 independiente que lee el vocabulario y máquina de soporte vectorial creadas 
-anteriormente con toda la base de datos(juntando de nuevo test y entrenamiento)
-para clasificar nuevas imágenes.
+anteriormente con toda la base de datos para clasificar nuevas imágenes y devuelve
+una etiqueta que hay que constrastar con lo que devuelve por consola el módulo BoW.
 
 %-------------------------------------------------------------------------------
 % Bibliografía
