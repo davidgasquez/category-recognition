@@ -287,7 +287,7 @@ mejoramos hasta 76,89\%. No es una mejora significativa y el tiempo
 de cómputo se ha visto aumentado, por lo que seguimos intentando mejorar 
 cambiando de detector. 
 
-Con el detector \texttt{FAST} se obtiene
+% HACER TABLA
 
 FAST - 79.77
 SIFT - 71.16
@@ -298,8 +298,13 @@ MSER - 76.10
 GoodFeaturesToTrackDetector - 77.57
 Dense - 76.89
 
+% CAMBIO A PIRAMIDAL
+
 PyramidAdaptedFeatureDetector FastFeatureDetector 83.45
-% CAMBIOS EN EL EXTRACTOR
+PyramidAdaptedFeatureDetector SURF 80.51
+PyramidAdaptedFeatureDetector SIFT 75.75
+PyramidAdaptedFeatureDetector Dense 77.15
+
 
 \subsection{Otras mejoras}
 

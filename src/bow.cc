@@ -24,7 +24,7 @@ void ComputeFolderHistograms(string train_folder_path,
   Ptr<DescriptorMatcher> matcher(new BFMatcher());
 
   // Detector
-  Ptr<FeatureDetector> detector(new PyramidAdaptedFeatureDetector(new SURF()));
+  Ptr<FeatureDetector> detector(new PyramidAdaptedFeatureDetector(new FastFeatureDetector()));
 
   // Extractor
   Ptr<DescriptorExtractor> extractor(new SiftDescriptorExtractor());
